@@ -1,0 +1,309 @@
+#+TITLE:         Getting started with Julia
+#+AUTHOR:        Juliabox team
+#+DRAWERS:       sfmb
+#+EMAIL:         s.f.m@ieee.org
+#+DATE:          08/09/2018
+#+DESCRIPTION:   Julia Language tutorials and testing
+#+KEYWORDS:      julia, data science, emacs, ESS, org-mode, development
+#+LANGUAGE:      en
+#+OPTIONS:       H:10 num:t toc:nil \n:nil @:t ::t |:t ^:{} -:t f:t *:t <:t d:HIDDEN
+#+OPTIONS:       TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:       LaTeX:dvipng
+#+INFOJS_OPT:    view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+#+STYLE: <link rel="stylesheet" type="text/css" href="dft.css"/>
+
+#+LaTeX_CLASS: IEEEtran
+#+LATEX_CLASS_OPTIONS: [letterpaper, 9pt, twoside, compsoc, final]
+#+LATEX_HEADER: \usepackage[USenglish]{babel}
+#+LATEX_HEADER: \hyphenation{do-cu-ment}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[ttdefault=true]{AnonymousPro}
+#+LATEX_HEADER: \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+#+LATEX_HEADER: \usepackage[libertine,bigdelims]{newtxmath}
+#+LATEX_HEADER: \usepackage[cal=boondoxo,bb=boondox,frak=boondox]{mathalfa}
+#+LATEX_HEADER: \useosf % change normal text to use proportional oldstyle figures
+
+#+LATEX_HEADER: \markboth{Getting started with Julia}%
+#+LATEX_HEADER: {Bizland HUB}
+#+LATEX_HEADER: \newcommand{\degC}{$^\circ$C{}}
+
+#+STYLE: <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+# -*- mode: org; -*-
+#+OPTIONS:   toc:2
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+#+BEGIN_ABSTRACT
+How to run some cells in org mode.
+
+*Sat Sep  8 17:34:37 CDT 2018*.
+#+END_ABSTRACT
+
+* Getting started
+  :PROPERTIES:
+  :CUSTOM_ID: getting-started
+  :END:
+
+*Topics*:
+
+1. How to print
+2. How to assign variables
+3. How to comment
+4. Syntax for basic math
+
+** How to print
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-print
+   :END:
+
+In Julia we usually use =println()= to print
+
+#+begin_src julia :session :results output :exports all
+  println("I'm excited to learn Julia!")
+#+end_src
+
+#+RESULTS:
+: I'm excited to learn Julia!
+
+** How to assign variables
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-assign-variables
+   :END:
+
+All we need is a variable name, value, and an equal's sign! Julia will
+figure out types for us.
+
+#+begin_src julia :session :results output :exports all
+  my_answer = 42
+  typeof(my_answer)
+#+end_src
+
+#+RESULTS:
+: 42
+: Int64
+
+#+begin_src julia :session :results output :exports all
+  my_pi = 3.14159
+  typeof(my_pi)
+#+end_src
+
+#+RESULTS:
+: 3.14159
+: Float64
+
+#+begin_src julia :session :results output :exports all
+  😺 = "smiley cat!"
+  typeof(😺)
+#+end_src
+
+#+RESULTS:
+: "smiley cat!"
+: String
+
+To type a smiley cat, use tab completion to select the emoji name and
+then tab again
+
+#+begin_example
+  # \:smi + <tab> --> select with down arrow + <enter> ---> <tab> + <enter> to complete
+#+end_example
+
+After assigning a value to a variable, we can reassign a value of a
+different type to that variable without any issue.
+
+#+begin_src julia :session :results output :exports all
+  😺 = 1
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src julia :session :results output :exports all
+  typeof(😺)
+#+end_src
+
+#+RESULTS:
+: Int64
+
+Note: Julia allows us to write super generic code, and 😺 is an example
+of this.
+
+This allows us to write code like
+
+#+begin_src julia :session :results output :exports all
+  😀 = 0
+  😞 = -1
+#+end_src
+
+#+RESULTS:
+: 0
+: -1
+
+#+begin_src julia :session :results output :exports all
+  😺 + 😞 == 😀
+#+end_src
+
+#+RESULTS:
+: true
+
+** How to comment
+   :PROPERTIES:
+   :CUSTOM_ID: how-to-comment
+   :END:
+
+#+begin_src julia :session :results output :exports all
+  # You can leave comments on a single line using the pound/hash key
+#+end_src
+
+#+RESULTS:
+
+#+begin_src julia :session :results output :exports all
+  #=
+
+  For multi-line comments,
+  use the '#= =#' sequence.
+
+  =#
+#+end_src
+
+#+RESULTS:
+
+** Syntax for basic math
+   :PROPERTIES:
+   :CUSTOM_ID: syntax-for-basic-math
+   :END:
+
+#+begin_src julia :session :results output :exports all
+  sum = 3 + 7
+#+end_src
+
+#+RESULTS:
+: 10
+
+#+begin_src julia :session :results output :exports all
+  difference = 10 - 3
+#+end_src
+
+#+RESULTS:
+: 7
+
+#+begin_src julia :session :results output :exports all
+  product = 20 * 5
+#+end_src
+
+#+RESULTS:
+: 100
+
+#+begin_src julia :session :results output :exports all
+  quotient = 100 / 10
+#+end_src
+
+#+RESULTS:
+: 10.0
+
+#+begin_src julia :session :results output :exports all
+  power = 10 ^ 2
+#+end_src
+
+#+RESULTS:
+: 100
+
+#+begin_src julia :session :results output :exports all
+  modulus = 101 % 2
+#+end_src
+
+#+RESULTS:
+: 1
+
+** Exercises
+    :PROPERTIES:
+    :CUSTOM_ID: exercises
+    :END:
+
+***  Exercise 1
+     :PROPERTIES:
+     :CUSTOM_ID: section
+     :END:
+
+Look up [[https://docs.julialang.org/en/v1][docs]] for the =convert= function.
+
+#+begin_src julia :session :results output :exports all
+  a = 3
+  typeof(a)
+  a = convert(Float64, a)
+  typeof(a)
+#+end_src
+
+#+RESULTS:
+: 3
+: Int64
+: 3.0
+: Float64
+
+***  Exercise 2
+     :PROPERTIES:
+     :CUSTOM_ID: section-1
+     :END:
+
+Assign =365= to a variable named =days=. Convert =days= to a float.
+
+#+begin_src julia :session :results output :exports all
+  days = 365
+  typeof(days)
+  days = convert(Float64, days)
+  typeof(days)
+#+end_src
+
+#+RESULTS:
+: 365
+: Int64
+: 365.0
+: Float64
+
+***  Exercise 3
+     :PROPERTIES:
+     :CUSTOM_ID: section-2
+     :END:
+
+See what happens when you execute
+
+#+begin_src julia :session :results output :exports all
+  convert(Int64, "1")
+#+end_src
+
+#+RESULTS:
+: ERROR: MethodError: Cannot `convert` an object of type String to an object of type Int64
+: Closest candidates are:
+:   convert(::Type{T<:Number}, !Matched::T<:Number) where T<:Number at number.jl:6
+:   convert(::Type{T<:Number}, !Matched::Number) where T<:Number at number.jl:7
+:   convert(::Type{T<:Integer}, !Matched::Ptr) where T<:Integer at pointer.jl:23
+:   ...
+: Stacktrace:
+:  [1] top-level scope at none:0
+
+*An error rise because this try to cast a character to an ~Int64~*.
+
+and
+
+#+begin_src julia :session :results output :exports all
+  parse(Int64, "1")
+#+end_src
+
+#+RESULTS:
+: 1
+
+*This successfully cast the character to a ~Int64~*
+
+/EOF/
