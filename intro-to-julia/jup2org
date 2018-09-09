@@ -1,0 +1,5 @@
+#!/bin/bash
+jupyter nbconvert $1.ipynb --to markdown
+pandoc $1.md -o tmp.org
+sed 's/\(BEGIN_SRC python\)/\1 :noweb no-export :tangle /' tmp.org > $1.org
+rm -f $1.md

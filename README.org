@@ -1,0 +1,40 @@
+* JuliaBoxTutorials - Org-mode
+
+I need to convert notebook to org-mode format.
+
+The following command combination would work for me,
+
+#+BEGIN_SRC bash
+  jupyter nbconvert notebook.ipynb --to markdown
+  pandoc notebook.md -o notebook.org
+#+END_SRC
+
+but it would be more convenient to have a direct conversion
+command. It seems that it may be straightforward to add. (If some kind
+experts show me the way, I might give it a try.) For example, here is
+an naive shell script to achieve the purpose:
+
+#+BEGIN_SRC bash
+  jupyter nbconvert $1.ipynb --to markdown
+  pandoc $1.md -o tmp.org
+  sed 's/\(BEGIN_SRC python\)/\1 :noweb no-export :tangle /' tmp.org > $1.org
+  rm -f $1.md
+#+END_SRC
+
+The reason that I still need to convert to org-mode, it is for
+org-mode babel support, with which I I have finer control of tangling
+the source code to different source code files without the excessive
+narrative in the workbook. Especially, I can direct different code
+chunks to different files, some for libraries, other for unit tests,
+etc.
+
+If ~Jupyterlab~ could support such refined source code tangling, then I
+may not need to go back to org-mode/babel.
+
+*Note*: Personally I always prefer the org mode given that only needs
+ julia.
+
+/EOF/
+   :PROPERTIES:
+   :CUSTOM_ID: juliaboxtutorials
+   :END:
