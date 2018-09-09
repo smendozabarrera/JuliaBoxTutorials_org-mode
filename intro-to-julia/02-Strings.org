@@ -1,4 +1,4 @@
-#+TITLE:         Getting started with Julia
+#+TITLE:         Strings in Julia
 #+AUTHOR:        Juliabox team
 #+DRAWERS:       sfmb
 #+EMAIL:         s.f.m@ieee.org
@@ -30,7 +30,7 @@
 #+LATEX_HEADER: \usepackage[cal=boondoxo,bb=boondox,frak=boondox]{mathalfa}
 #+LATEX_HEADER: \useosf % change normal text to use proportional oldstyle figures
 
-#+LATEX_HEADER: \markboth{Getting started with Julia}%
+#+LATEX_HEADER: \markboth{Strings in Julia}%
 #+LATEX_HEADER: {Bizland HUB}
 #+LATEX_HEADER: \newcommand{\degC}{$^\circ$C{}}
 
@@ -47,263 +47,212 @@
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 
 #+BEGIN_ABSTRACT
-Getting started with Julia.
+Strings in Julia.
 
-*Sat Sep  8 17:34:37 CDT 2018*.
+*Sat Sep  8 18:32:32 CDT 2018*.
 #+END_ABSTRACT
 
-* Getting started
+* Strings
   :PROPERTIES:
-  :CUSTOM_ID: getting-started
+  :CUSTOM_ID: strings
   :END:
 
 *Topics*:
 
-1. How to print
-2. How to assign variables
-3. How to comment
-4. Syntax for basic math
+1. How to get a string
+2. String interpolation
+3. String concatenation
 
-** How to print
+** How to get a string
    :PROPERTIES:
-   :CUSTOM_ID: how-to-print
+   :CUSTOM_ID: how-to-get-a-string
    :END:
 
-In Julia we usually use =println()= to print
+Enclose your characters in ~" "~ or ~""" """~!
 
 #+begin_src julia :session :results output :exports all
-  println("I'm excited to learn Julia!")
+  s1 = "I am a string."
 #+end_src
 
 #+RESULTS:
-: I'm excited to learn Julia!
+: "I am a string."
 
-** How to assign variables
+#+begin_src julia :session :results output :exports all
+  s2 = """I am also a string. """
+#+end_src
+
+#+RESULTS:
+: "I am also a string. "
+
+There are a couple functional differences between strings enclosed in
+single and triple quotes. One difference is that, in the latter case,
+you can use quotation marks within your string.
+
+#+begin_src julia :session :results output :exports all
+  "Here, we get an "error" because it's ambiguous where this string ends "
+#+end_src
+
+#+RESULTS:
+: ERROR: syntax: cannot juxtapose string literal
+
+#+begin_src julia :session :results output :exports all
+  """Look, Mom, no "errors"!!! """
+#+end_src
+
+#+RESULTS:
+: "Look, Mom, no \"errors\"!!! "
+
+Note that ~' '~ define a character, but NOT a string!
+
+#+begin_src julia :session :results output :exports all
+  typeof('a')
+#+end_src
+
+#+RESULTS:
+: Char
+
+#+begin_src julia :session :results output :exports all
+  'We will get an error here'
+#+end_src
+
+#+RESULTS:
+: ERROR: syntax: invalid character literal
+
+** String interpolation
    :PROPERTIES:
-   :CUSTOM_ID: how-to-assign-variables
+   :CUSTOM_ID: string-interpolation
    :END:
 
-All we need is a variable name, value, and an equal's sign! Julia will
-figure out types for us.
+We can use the ~$~ sign to insert existing variables into a string and to
+evaluate expressions within a string. Below is an example that contains
+some highly sensitive personal information.
 
 #+begin_src julia :session :results output :exports all
-  my_answer = 42
-  typeof(my_answer)
+  name = "Jane"
+  num_fingers = 10
+  num_toes = 10
 #+end_src
 
 #+RESULTS:
-: 42
-: Int64
-
-#+begin_src julia :session :results output :exports all
-  my_pi = 3.14159
-  typeof(my_pi)
-#+end_src
-
-#+RESULTS:
-: 3.14159
-: Float64
-
-#+begin_src julia :session :results output :exports all
-  😺 = "smiley cat!"
-  typeof(😺)
-#+end_src
-
-#+RESULTS:
-: "smiley cat!"
-: String
-
-To type a smiley cat, use tab completion to select the emoji name and
-then tab again
-
-#+begin_example
-  # \:smi + <tab> --> select with down arrow + <enter> ---> <tab> + <enter> to complete
-#+end_example
-
-After assigning a value to a variable, we can reassign a value of a
-different type to that variable without any issue.
-
-#+begin_src julia :session :results output :exports all
-  😺 = 1
-#+end_src
-
-#+RESULTS:
-: 1
-
-#+begin_src julia :session :results output :exports all
-  typeof(😺)
-#+end_src
-
-#+RESULTS:
-: Int64
-
-Note: Julia allows us to write super generic code, and 😺 is an example
-of this.
-
-This allows us to write code like
-
-#+begin_src julia :session :results output :exports all
-  😀 = 0
-  😞 = -1
-#+end_src
-
-#+RESULTS:
-: 0
-: -1
-
-#+begin_src julia :session :results output :exports all
-  😺 + 😞 == 😀
-#+end_src
-
-#+RESULTS:
-: true
-
-** How to comment
-   :PROPERTIES:
-   :CUSTOM_ID: how-to-comment
-   :END:
-
-#+begin_src julia :session :results output :exports all
-  # You can leave comments on a single line using the pound/hash key
-#+end_src
-
-#+RESULTS:
-
-#+begin_src julia :session :results output :exports all
-  #=
-
-  For multi-line comments,
-  use the '#= =#' sequence.
-
-  =#
-#+end_src
-
-#+RESULTS:
-
-** Syntax for basic math
-   :PROPERTIES:
-   :CUSTOM_ID: syntax-for-basic-math
-   :END:
-
-#+begin_src julia :session :results output :exports all
-  sum = 3 + 7
-#+end_src
-
-#+RESULTS:
+: "Jane"
+: 10
 : 10
 
 #+begin_src julia :session :results output :exports all
-  difference = 10 - 3
+  println("Hello, my name is $name.")
+  println("I have $num_fingers fingers and $num_toes toes.")
 #+end_src
 
 #+RESULTS:
-: 7
+: Hello, my name is Jane.
+: I have 10 fingers and 10 toes.
 
 #+begin_src julia :session :results output :exports all
-  product = 20 * 5
+  println("That is $(num_fingers + num_toes) digits in all!!")
 #+end_src
 
 #+RESULTS:
-: 100
+: That is 20 digits in all!!
+
+** String concatenation
+   :PROPERTIES:
+   :CUSTOM_ID: string-concatenation
+   :END:
+
+Below are three ways we can concatenate strings! The first way is to use
+the =string()= function. =string()= converts non-string inputs to
+strings.
 
 #+begin_src julia :session :results output :exports all
-  quotient = 100 / 10
+  s3 = "How many cats ";
+  s4 = "is too many cats?";
+  😺 = 10
 #+end_src
 
 #+RESULTS:
-: 10.0
+:
+:
+: 10
 
 #+begin_src julia :session :results output :exports all
-  power = 10 ^ 2
+  string(s3, s4)
 #+end_src
 
 #+RESULTS:
-: 100
+: "How many cats is too many cats?"
 
 #+begin_src julia :session :results output :exports all
-  modulus = 101 % 2
+  string("I don't know, but ", 😺, " is too few.")
 #+end_src
 
 #+RESULTS:
-: 1
+: "I don't know, but 10 is too few."
 
-** Exercises
+We can also use =*= for concatenation!
+
+#+begin_src julia :session :results output :exports all
+  s3 * s4
+#+end_src
+
+#+RESULTS:
+: "How many cats is too many cats?"
+
+*** Exercises
     :PROPERTIES:
     :CUSTOM_ID: exercises
     :END:
 
-***  Exercise 1
+**** Exercise 1
      :PROPERTIES:
      :CUSTOM_ID: section
      :END:
 
-Look up [[https://docs.julialang.org/en/v1][docs]] for the =convert= function.
+Create a string that says "hi" 1000 times, first with =repeat= and then
+with the exponentiation operator, which can call =*= under the hood.
+
+***** From the [[https://docs.julialang.org/en/v1/base/strings/#Base.repeat-Tuple{AbstractString,Integer}][documentation]]
 
 #+begin_src julia :session :results output :exports all
-  a = 3
-  typeof(a)
-  a = convert(Float64, a)
-  typeof(a)
+  n = 10
+  repeat("hi", n)
 #+end_src
 
 #+RESULTS:
-: 3
-: Int64
-: 3.0
-: Float64
+: 10
+: "hihihihihihihihihihi"
 
-***  Exercise 2
+#+begin_src julia :session :results output :exports all
+  "hi"^n
+#+end_src
+
+#+RESULTS:
+: "hihihihihihihihihihi"
+
+**** Exercise 2
      :PROPERTIES:
      :CUSTOM_ID: section-1
      :END:
 
-Assign =365= to a variable named =days=. Convert =days= to a float.
+Declare two variables
 
 #+begin_src julia :session :results output :exports all
-  days = 365
-  typeof(days)
-  days = convert(Float64, days)
-  typeof(days)
+  a = 3
+  b = 4
 #+end_src
 
 #+RESULTS:
-: 365
-: Int64
-: 365.0
-: Float64
+: 3
+: 4
 
-***  Exercise 3
-     :PROPERTIES:
-     :CUSTOM_ID: section-2
-     :END:
-
-See what happens when you execute
+and use them to create two strings:
 
 #+begin_src julia :session :results output :exports all
-  convert(Int64, "1")
+  string(a, " + ", b)
+  string(a + b)
 #+end_src
 
 #+RESULTS:
-: ERROR: MethodError: Cannot `convert` an object of type String to an object of type Int64
-: Closest candidates are:
-:   convert(::Type{T<:Number}, !Matched::T<:Number) where T<:Number at number.jl:6
-:   convert(::Type{T<:Number}, !Matched::Number) where T<:Number at number.jl:7
-:   convert(::Type{T<:Integer}, !Matched::Ptr) where T<:Integer at pointer.jl:23
-:   ...
-: Stacktrace:
-:  [1] top-level scope at none:0
-
-*An error rise because this try to cast a character to an ~Int64~*.
-
-and
-
-#+begin_src julia :session :results output :exports all
-  parse(Int64, "1")
-#+end_src
-
-#+RESULTS:
-: 1
-
-*This successfully cast the character to a ~Int64~*
+: "3 + 4"
+: "7"
 
 /EOF/
