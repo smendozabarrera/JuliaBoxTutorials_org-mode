@@ -1,0 +1,426 @@
+#+TITLE:         Loops in Julia
+#+AUTHOR:        Juliabox team
+#+DRAWERS:       sfmb
+#+EMAIL:         s.f.m@ieee.org
+#+DATE:          11/09/2018
+#+DESCRIPTION:   Julia Language tutorials and testing
+#+KEYWORDS:      julia, data science, emacs, ESS, org-mode, development
+#+LANGUAGE:      en
+#+OPTIONS:       H:10 num:t toc:nil \n:nil @:t ::t |:t ^:{} -:t f:t *:t <:t d:HIDDEN
+#+OPTIONS:       TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:       LaTeX:dvipng
+#+INFOJS_OPT:    view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+#+STYLE: <link rel="stylesheet" type="text/css" href="dft.css"/>
+
+#+LaTeX_CLASS: IEEEtran
+#+LATEX_CLASS_OPTIONS: [letterpaper, 9pt, twoside, compsoc, final]
+#+LATEX_HEADER: \usepackage[USenglish]{babel}
+#+LATEX_HEADER: \hyphenation{do-cu-ment}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[ttdefault=true]{AnonymousPro}
+#+LATEX_HEADER: \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+#+LATEX_HEADER: \usepackage[libertine,bigdelims]{newtxmath}
+#+LATEX_HEADER: \usepackage[cal=boondoxo,bb=boondox,frak=boondox]{mathalfa}
+#+LATEX_HEADER: \useosf % change normal text to use proportional oldstyle figures
+
+#+LATEX_HEADER: \markboth{Loops in Julia}%
+#+LATEX_HEADER: {Bizland HUB}
+#+LATEX_HEADER: \newcommand{\degC}{$^\circ$C{}}
+
+#+STYLE: <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+# -*- mode: org; -*-
+#+OPTIONS:   toc:2
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+#+BEGIN_ABSTRACT
+Loops in Julia.
+
+*Tue Sep 11 05:10:28 CDT 2018*
+#+END_ABSTRACT
+
+* Loops
+  :PROPERTIES:
+  :CUSTOM_ID: loops
+  :END:
+
+Topics: 1. =while= loops 2. =for= loops
+
+** while loops
+   :PROPERTIES:
+   :CUSTOM_ID: while-loops
+   :END:
+
+The syntax for a =while= is
+
+#+begin_example
+  while *condition*
+      *loop body*
+  end
+#+end_example
+
+For example, we could use =while= to count or to iterate over an array.
+
+#+begin_src julia :session :results output :exports all
+  n = 0
+  while n < 10
+      global n += 1
+      println(n)
+  end
+#+end_src
+
+#+RESULTS:
+#+begin_example
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+#+end_example
+
+#+begin_src julia :session :results output :exports all
+  myfriends = ["Ted", "Robyn", "Barney", "Lily", "Marshall"]
+
+  i = 1
+  while i <= length(myfriends)
+      friend = myfriends[i]
+      println("Hi $friend, it's great to see you!")
+      global i += 1
+  end
+#+end_src
+
+#+RESULTS:
+#+begin_example
+5-element Array{String,1}:
+ "Ted"
+ "Robyn"
+ "Barney"
+ "Lily"
+ "Marshall"
+
+1
+Hi Ted, it's great to see you!
+Hi Robyn, it's great to see you!
+Hi Barney, it's great to see you!
+Hi Lily, it's great to see you!
+Hi Marshall, it's great to see you!
+#+end_example
+
+** for loops
+   :PROPERTIES:
+   :CUSTOM_ID: for-loops
+   :END:
+
+The syntax for a =for= loop is
+
+#+begin_example
+  for *var* in *loop iterable*
+      ,*loop body*
+  end
+#+end_example
+
+We could use a for loop to generate the same results as either of the
+examples above:
+
+#+begin_src julia :session :results output :exports all
+  for n in 1:10
+      println(n)
+  end
+#+end_src
+
+#+RESULTS:
+#+begin_example
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+#+end_example
+
+#+begin_src julia :session :results output :exports all
+  myfriends = ["Ted", "Robyn", "Barney", "Lily", "Marshall"]
+
+  for friend in myfriends
+      println("Hi $friend, it's great to see you!")
+  end
+#+end_src
+
+#+RESULTS:
+#+begin_example
+5-element Array{String,1}:
+ "Ted"
+ "Robyn"
+ "Barney"
+ "Lily"
+ "Marshall"
+
+Hi Ted, it's great to see you!
+Hi Robyn, it's great to see you!
+Hi Barney, it's great to see you!
+Hi Lily, it's great to see you!
+Hi Marshall, it's great to see you!
+#+end_example
+
+Now let's use =for= loops to create some addition tables, where the
+value of every entry is the sum of its row and column indices.
+
+First, we initialize an array with zeros.
+
+#+begin_src julia :session :results output :exports all
+  m, n = 5, 5
+  A = fill(0, (m, n))
+#+end_src
+
+#+RESULTS:
+: (5, 5)
+: 5×5 Array{Int64,2}:
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+
+#+begin_src julia :session :results output :exports all
+  for i in 1:m
+      for j in 1:n
+          A[i, j] = i + j
+      end
+  end
+  A
+#+end_src
+
+#+RESULTS:
+:
+: 5×5 Array{Int64,2}:
+:  2  3  4  5   6
+:  3  4  5  6   7
+:  4  5  6  7   8
+:  5  6  7  8   9
+:  6  7  8  9  10
+
+Here's some syntactic sugar for the same nested =for= loop
+
+#+begin_src julia :session :results output :exports all
+  B = fill(0, (m, n))
+#+end_src
+
+#+RESULTS:
+: 5×5 Array{Int64,2}:
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+:  0  0  0  0  0
+
+#+begin_src julia :session :results output :exports all
+  for i in 1:m, j in 1:n
+      B[i, j] = i + j
+  end
+  B
+#+end_src
+
+#+RESULTS:
+:
+: 5×5 Array{Int64,2}:
+:  2  3  4  5   6
+:  3  4  5  6   7
+:  4  5  6  7   8
+:  5  6  7  8   9
+:  6  7  8  9  10
+
+The more "Julia" way to create this addition table would have been with
+an /array comprehension/.
+
+#+begin_src julia :session :results output :exports all
+  C = [i + j for i in 1:m, j in 1:n]
+#+end_src
+
+#+RESULTS:
+: 5×5 Array{Int64,2}:
+:  2  3  4  5   6
+:  3  4  5  6   7
+:  4  5  6  7   8
+:  5  6  7  8   9
+:  6  7  8  9  10
+
+*** Exercises
+    :PROPERTIES:
+    :CUSTOM_ID: exercises
+    :END:
+
+**** Example 1
+     :PROPERTIES:
+     :CUSTOM_ID: section
+     :END:
+
+Loop over integers between 1 and 100 and print their squares.
+
+#+begin_src julia :session :results output :exports all
+  F = fill(1, 1);
+  for i in 2:100
+      push!(F, i^2)
+  end
+  F
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+
+100-element Array{Int64,1}:
+     1
+     4
+     9
+    16
+    25
+    36
+    49
+    64
+    81
+   100
+     ⋮
+  8464
+  8649
+  8836
+  9025
+  9216
+  9409
+  9604
+  9801
+ 10000
+#+end_example
+
+#+begin_src julia :session :results output :exports all
+  [i^2 for i in 1:100]
+#+end_src
+
+#+RESULTS:
+#+begin_example
+100-element Array{Int64,1}:
+     1
+     4
+     9
+    16
+    25
+    36
+    49
+    64
+    81
+   100
+     ⋮
+  8464
+  8649
+  8836
+  9025
+  9216
+  9409
+  9604
+  9801
+ 10000
+#+end_example
+
+**** Example 2
+     :PROPERTIES:
+     :CUSTOM_ID: section-1
+     :END:
+
+Add to the code above a bit to create a dictionary, =squares= that holds
+integers and their squares as key, value pairs such that
+
+#+begin_src julia :session :results output :exports all
+  # squares[10] == 100
+  E = Dict("1" => 1);
+  for i in 2:100
+      E[string(i)] = i^2
+  end
+  E
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Dict{String,Int64} with 100 entries:
+  "32" => 1024
+  "29" => 841
+  "1"  => 1
+  "54" => 2916
+  "78" => 6084
+  "81" => 6561
+  "2"  => 4
+  "74" => 5476
+  "41" => 1681
+  "65" => 4225
+  "51" => 2601
+  "53" => 2809
+  "27" => 729
+  "75" => 5625
+  "42" => 1764
+  "33" => 1089
+  "28" => 784
+  "50" => 2500
+  "52" => 2704
+  ⋮    => ⋮
+#+end_example
+
+**** Example 3
+     :PROPERTIES:
+     :CUSTOM_ID: section-2
+     :END:
+
+Use an array comprehension to create an an array that stores the squares
+for all integers between 1 and 100.
+
+#+begin_src julia :session :results output :exports all
+  [i^2 for i in 1:100]
+#+end_src
+
+#+RESULTS:
+#+begin_example
+100-element Array{Int64,1}:
+     1
+     4
+     9
+    16
+    25
+    36
+    49
+    64
+    81
+   100
+     ⋮
+  8464
+  8649
+  8836
+  9025
+  9216
+  9409
+  9604
+  9801
+ 10000
+#+end_example
+
+/EOF/
