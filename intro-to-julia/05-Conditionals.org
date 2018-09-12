@@ -1,0 +1,288 @@
+#+TITLE:         Conditionals in Julia
+#+AUTHOR:        Juliabox team
+#+DRAWERS:       sfmb
+#+EMAIL:         s.f.m@ieee.org
+#+DATE:          11/09/2018
+#+DESCRIPTION:   Julia Language tutorials and testing
+#+KEYWORDS:      julia, data science, emacs, ESS, org-mode, development
+#+LANGUAGE:      en
+#+OPTIONS:       H:10 num:t toc:nil \n:nil @:t ::t |:t ^:{} -:t f:t *:t <:t d:HIDDEN
+#+OPTIONS:       TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS:       LaTeX:dvipng
+#+INFOJS_OPT:    view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+#+STYLE: <link rel="stylesheet" type="text/css" href="dft.css"/>
+
+#+LaTeX_CLASS: IEEEtran
+#+LATEX_CLASS_OPTIONS: [letterpaper, 9pt, twoside, compsoc, final]
+#+LATEX_HEADER: \usepackage[USenglish]{babel}
+#+LATEX_HEADER: \hyphenation{do-cu-ment}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{makeidx}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LATEX_HEADER: \usepackage[ttdefault=true]{AnonymousPro}
+#+LATEX_HEADER: \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+#+LATEX_HEADER: \usepackage[libertine,bigdelims]{newtxmath}
+#+LATEX_HEADER: \usepackage[cal=boondoxo,bb=boondox,frak=boondox]{mathalfa}
+#+LATEX_HEADER: \useosf % change normal text to use proportional oldstyle figures
+
+#+LATEX_HEADER: \markboth{Conditionals in Julia}%
+#+LATEX_HEADER: {Bizland HUB}
+#+LATEX_HEADER: \newcommand{\degC}{$^\circ$C{}}
+
+#+STYLE: <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+# -*- mode: org; -*-
+#+OPTIONS:   toc:2
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+#+BEGIN_ABSTRACT
+Conditionals in Julia.
+
+*Tue Sep 11 05:10:28 CDT 2018*
+#+END_ABSTRACT
+
+* Conditionals
+:PROPERTIES:
+:CUSTOM_ID: conditionals
+:END:
+
+** With the =if= keyword
+:PROPERTIES:
+:CUSTOM_ID: with-the-if-keyword
+:END:
+
+In Julia, the syntax
+
+#+begin_example
+  if *condition 1*
+      ,*option 1*
+  elseif *condition 2*
+      ,*option 2*
+  else
+      ,*option 3*
+  end
+#+end_example
+
+allows us to conditionally evaluate one of our options. For example, we
+might want to implement the FizzBuzz test: given a number, N, print
+"Fizz" if N is divisible by 3, "Buzz" if N is divisible by 5, and
+"FizzBuzz" if N is divisible by 3 and 5. Otherwise just print the number
+itself!
+
+#+begin_src julia :session :results output :exports all
+    N = 150
+#+end_src
+
+#+RESULTS:
+: 150
+
+#+begin_src julia :session :results output :exports all
+  if (N % 3 == 0) & (N % 5 == 0)
+      println("FizzBuzz")
+  elseif N % 3 == 0
+      println("Fizz")
+  elseif N % 5 == 0
+      println("Buzz")
+  else
+      println(N)
+  end
+#+end_src
+
+#+RESULTS:
+: FizzBuzz
+
+** with ternary operators
+:PROPERTIES:
+:CUSTOM_ID: with-ternary-operators
+:END:
+
+For this last block, we could instead use the ternary operator with the
+syntax
+
+#+begin_example
+  a ? b : c
+#+end_example
+
+which equates to
+
+#+begin_example
+  if a
+      b
+  else
+      c
+  end
+#+end_example
+
+Now let's say we want to return the larger of two numbers. Using the
+=if= and =else= keywords, we might write
+
+#+begin_src julia :session :results output :exports all
+  x = 120
+  y = 121
+#+end_src
+
+#+RESULTS:
+: 120
+: 121
+
+#+begin_src julia :session :results output :exports all
+  if x > y
+      x
+  else
+      y
+  end
+#+end_src
+
+#+RESULTS:
+: 121
+
+and as a ternary operator, the conditional looks like this:
+
+#+begin_src julia :session :results output :exports all
+  (x > y) ? x : y
+#+end_src
+
+#+RESULTS:
+: 121
+
+** With short-circuit evaluation
+:PROPERTIES:
+:CUSTOM_ID: with-short-circuit-evaluation
+:END:
+
+We've already seen expressions with the syntax
+
+#+begin_example
+  a & b
+#+end_example
+
+for two expressions or values =a= and =b=. Julia will evaluate this
+expression eagerly so that
+
+#+begin_src julia :session :results output :exports all
+  false & (println("hi"); true)
+#+end_src
+
+#+RESULTS:
+: hi
+: false
+
+prints "hi" to stdout before returning false.
+
+On the other hand, when we replace =&= with =&&=, as in
+
+#+begin_example
+  a && b
+#+end_example
+
+we get short-circuit evaluation. =b= is only evaluated if =a= is true,
+which can help us out if evaluating =b= is expensive. For example,
+
+#+begin_src julia :session :results output :exports all
+  false && (println("hi"); true)
+#+end_src
+
+#+RESULTS:
+: false
+
+returns =false= without printing "hi".
+
+** This means we can use
+
+#+begin_example
+  a && b
+#+end_example
+
+*to conditionally evaluate =b= if =a= is true!*
+
+#+begin_src julia :session :results output :exports all
+  (x > y) && println(x)
+#+end_src
+
+#+RESULTS:
+: false
+
+#+begin_src julia :session :results output :exports all
+  (x < y) && println(y)
+#+end_src
+
+#+RESULTS:
+: 121
+
+Similarly, check out the difference between
+
+#+begin_src julia :session :results output :exports all
+  true | (println("hi"); true)
+#+end_src
+
+#+RESULTS:
+: hi
+: true
+
+and
+
+#+begin_src julia :session :results output :exports all
+  true || (println("hi"); true)
+#+end_src
+
+#+RESULTS:
+: true
+
+where =|= means =or=.
+
+* Exercises
+:PROPERTIES:
+:CUSTOM_ID: exercises
+:END:
+
+** Example 1
+:PROPERTIES:
+:CUSTOM_ID: section
+:END:
+
+Write a conditional statement that prints a number if the number is even
+and the string "odd" if the number is odd.
+
+#+begin_src julia :session :results output :exports all
+  number = 121;
+
+  if (number % 2 == 0)
+      println(number)
+  else
+      println("odd")
+  end
+#+end_src
+
+#+RESULTS:
+:
+:
+: odd
+
+** Example 2
+:PROPERTIES:
+:CUSTOM_ID: section-1
+:END:
+
+Rewrite the code from 5.1 using a ternary operator.
+
+#+begin_src julia :session :results output :exports all
+  number = 22;
+  (number % 2 == 0) ? number : "odd"
+#+end_src
+
+#+RESULTS:
+:
+: 22
+
+/EOF/
