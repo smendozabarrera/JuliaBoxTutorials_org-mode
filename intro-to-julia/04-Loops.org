@@ -100,7 +100,7 @@ For example, we could use =while= to count or to iterate over an array.
 #+begin_src julia :session :results output :exports all
   myfriends = ["Ted", "Robyn", "Barney", "Lily", "Marshall"]
 
-  i = 1
+  i = 1;
   while i <= length(myfriends)
       friend = myfriends[i]
       println("Hi $friend, it's great to see you!")
@@ -117,7 +117,7 @@ For example, we could use =while= to count or to iterate over an array.
  "Lily"
  "Marshall"
 
-1
+
 Hi Ted, it's great to see you!
 Hi Robyn, it's great to see you!
 Hi Barney, it's great to see you!
@@ -256,7 +256,7 @@ The more "Julia" way to create this addition table would have been with
 an /array comprehension/.
 
 #+begin_src julia :session :results output :exports all
-  C = [i + j for i in 1:m, j in 1:n]
+  C = [(i + j) for i in 1:m, j in 1:n]
 #+end_src
 
 #+RESULTS:
@@ -281,6 +281,7 @@ Loop over integers between 1 and 100 and print their squares.
 
 #+begin_src julia :session :results output :exports all
   F = fill(1, 1);
+
   for i in 2:100
       push!(F, i^2)
   end
@@ -289,6 +290,7 @@ Loop over integers between 1 and 100 and print their squares.
 
 #+RESULTS:
 #+begin_example
+
 
 
 100-element Array{Int64,1}:
@@ -302,7 +304,24 @@ Loop over integers between 1 and 100 and print their squares.
     64
     81
    100
+   121
+   144
+   169
+   196
+   225
+   256
+   289
+   324
      ⋮
+  6889
+  7056
+  7225
+  7396
+  7569
+  7744
+  7921
+  8100
+  8281
   8464
   8649
   8836
@@ -315,7 +334,7 @@ Loop over integers between 1 and 100 and print their squares.
 #+end_example
 
 #+begin_src julia :session :results output :exports all
-  [i^2 for i in 1:100]
+  [(i^2) for i in 1:100]
 #+end_src
 
 #+RESULTS:
@@ -331,7 +350,24 @@ Loop over integers between 1 and 100 and print their squares.
     64
     81
    100
+   121
+   144
+   169
+   196
+   225
+   256
+   289
+   324
      ⋮
+  6889
+  7056
+  7225
+  7396
+  7569
+  7744
+  7921
+  8100
+  8281
   8464
   8649
   8836
@@ -354,6 +390,7 @@ integers and their squares as key, value pairs such that
 #+begin_src julia :session :results output :exports all
   # squares[10] == 100
   E = Dict("1" => 1);
+
   for i in 2:100
       E[string(i)] = i^2
   end
@@ -362,6 +399,9 @@ integers and their squares as key, value pairs such that
 
 #+RESULTS:
 #+begin_example
+
+
+
 
 Dict{String,Int64} with 100 entries:
   "32" => 1024
@@ -383,6 +423,23 @@ Dict{String,Int64} with 100 entries:
   "28" => 784
   "50" => 2500
   "52" => 2704
+  "63" => 3969
+  "92" => 8464
+  "88" => 7744
+  "93" => 8649
+  "26" => 676
+  "10" => 100
+  "77" => 5929
+  "24" => 576
+  "87" => 7569
+  "58" => 3364
+  "25" => 625
+  "23" => 529
+  "49" => 2401
+  "59" => 3481
+  "5"  => 25
+  "31" => 961
+  "89" => 7921
   ⋮    => ⋮
 #+end_example
 
@@ -395,7 +452,7 @@ Use an array comprehension to create an an array that stores the squares
 for all integers between 1 and 100.
 
 #+begin_src julia :session :results output :exports all
-  [i^2 for i in 1:100]
+  [(i^2) for i in 1:100]
 #+end_src
 
 #+RESULTS:
@@ -411,7 +468,24 @@ for all integers between 1 and 100.
     64
     81
    100
+   121
+   144
+   169
+   196
+   225
+   256
+   289
+   324
      ⋮
+  6889
+  7056
+  7225
+  7396
+  7569
+  7744
+  7921
+  8100
+  8281
   8464
   8649
   8836

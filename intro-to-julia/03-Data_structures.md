@@ -49,8 +49,10 @@ Syntax: `julia (item1, item2, ...)`
 We can index into this tuple,
 
     myfavoriteanimals[1]
+    myfavoriteanimals[3]
 
     "penguins"
+    "sugargliders"
 
 but since tuples are immutable, we can't update it
 
@@ -63,18 +65,50 @@ but since tuples are immutable, we can't update it
 What is a sugar glider, you ask? Let's download an image of one and look
 at it!
 
-    download("https://upload.wikimedia.org/wikipedia/commons/0/0d/Petaurus_breviceps-Cayley.jpg", "../../../graphs/sugar-glider.jpg")
-
-      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                     Dload  Upload   Total   Spent    Left  Speed
-      0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100 17423  100 17423    0     0   8515      0  0:00:02  0:00:02 --:--:--  8515
-    "../../../graphs/sugar-glider.jpg"
+    if !isfile("../../../graphs/sugar-glider.jpg")
+        download("https://upload.wikimedia.org/wikipedia/commons/0/0d/Petaurus_breviceps-Cayley.jpg", "../../../graphs/sugar-glider.jpg")
+    end
 
     load("../../../graphs/sugar-glider.jpg")
 
-    ERROR: UndefVarError: load not defined
-    Stacktrace:
-     [1] top-level scope at none:0
+    500×396 Array{RGB{N0f8},2} with eltype RGB{Normed{UInt8,8}}:
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.992,0.992,0.992)  RGB{N0f8}(0.992,0.992,0.992)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.988,0.988,0.988)  RGB{N0f8}(0.988,0.988,0.988)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.988,0.988,0.988)  RGB{N0f8}(0.988,0.988,0.988)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.992,0.992,0.992)  RGB{N0f8}(0.992,0.992,0.992)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     ⋮                                                           ⋱                                ⋮
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
 
 Let's install the package
 
@@ -83,18 +117,16 @@ Let's install the package
     Pkg.add("ImageMagick")
 
 
-      Updating registry at `~/.julia/registries/General`
-      Updating git-repo `https://github.com/JuliaRegistries/General.git`
-    [?25l[2K[?25h Resolving package versions...
-      Updating `~/.julia/environments/v1.0/Project.toml`
-     [no changes]
-      Updating `~/.julia/environments/v1.0/Manifest.toml`
-     [no changes]
-     Resolving package versions...
-      Updating `~/.julia/environments/v1.0/Project.toml`
-     [no changes]
-      Updating `~/.julia/environments/v1.0/Manifest.toml`
-     [no changes]
+    Resolving package versions...
+     Updating `~/.julia/environments/v1.0/Project.toml`
+    [no changes]
+     Updating `~/.julia/environments/v1.0/Manifest.toml`
+    [no changes]
+    Resolving package versions...
+     Updating `~/.julia/environments/v1.0/Project.toml`
+    [no changes]
+     Updating `~/.julia/environments/v1.0/Manifest.toml`
+    [no changes]
 
     # May take a little bit the first time
     using Images
@@ -111,7 +143,28 @@ Let's install the package
      RGB{N0f8}(0.992,0.992,0.992)  RGB{N0f8}(0.992,0.992,0.992)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)  …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)     RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      ⋮                                                           ⋱                                ⋮
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
+     RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)           RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
      RGB{N0f8}(1.0,1.0,1.0)        RGB{N0f8}(1.0,1.0,1.0)        …  RGB{N0f8}(0.996,0.996,0.996)  RGB{N0f8}(0.996,0.996,0.996)
@@ -143,8 +196,10 @@ will return "penguins". However, we will now also be able to access
 "penguins" by keyword, via
 
     myfavoriteanimals.bird
+    myfavoriteanimals.marsupial
 
     "penguins"
+    "sugargliders"
 
 
 <a id="dictionaries"></a>
@@ -161,19 +216,23 @@ Syntax: `julia Dict(key1 => value1, key2 => value2, ...)`
 A good example is a contacts list, where we associate names with phone
 numbers.
 
-    myphonebook = Dict("Jenny" => "867-5309",
-                       "Ghostbusters" => "555-2368")
+    myphonebook = Dict(
+        "Jenny" => "867-5309",
+        "Ghostbusters" => "555-2368",
+        "Chini" => "2225197000"
+    )
 
-    Dict{String,String} with 2 entries:
+    Dict{String,String} with 3 entries:
       "Jenny"        => "867-5309"
+      "Chini"        => "2225197000"
       "Ghostbusters" => "555-2368"
 
 In this example, each name and number is a "key" and "value" pair. We
 can grab Jenny's number (a value) using the associated key
 
-    myphonebook["Jenny"]
+    myphonebook["Chini"]
 
-    "867-5309"
+    "2225197000"
 
 We can add another entry to this dictionary as follows
 
@@ -185,9 +244,10 @@ Let's check what our phonebook looks like now&#x2026;
 
     myphonebook
 
-    Dict{String,String} with 3 entries:
+    Dict{String,String} with 4 entries:
       "Jenny"        => "867-5309"
       "Kramer"       => "555-FILK"
+      "Chini"        => "2225197000"
       "Ghostbusters" => "555-2368"
 
 We can delete Kramer from our contact list - and simultaneously grab his
@@ -199,8 +259,9 @@ number - by using `pop!`
 
     myphonebook
 
-    Dict{String,String} with 2 entries:
+    Dict{String,String} with 3 entries:
       "Jenny"        => "867-5309"
+      "Chini"        => "2225197000"
       "Ghostbusters" => "555-2368"
 
 Unlike tuples and arrays, dictionaries are not ordered. So, we can't
@@ -358,25 +419,25 @@ Below are examples of 2D and 3D arrays populated with random values.
     rand(4, 3)
 
     4×3 Array{Float64,2}:
-     0.175901  0.0182792  0.382218
-     0.346488  0.629005   0.733673
-     0.78154   0.671651   0.203042
-     0.115388  0.248774   0.887315
+     0.0187732  0.725403  0.774366
+     0.27996    0.186569  0.638738
+     0.158637   0.193291  0.755511
+     0.374137   0.594866  0.0319379
 
     rand(4, 3, 2)
 
     4×3×2 Array{Float64,3}:
     [:, :, 1] =
-     0.916338  0.561598  0.827302
-     0.530749  0.63366   0.959193
-     0.244435  0.900316  0.339301
-     0.567211  0.811524  0.253519
+     0.0409652   0.7521    0.332586
+     0.34334     0.657881  0.478918
+     0.00927325  0.590553  0.961698
+     0.249506    0.931815  0.250351
 
     [:, :, 2] =
-     0.952615  0.855504  0.956897
-     0.938584  0.607085  0.879337
-     0.368421  0.499222  0.915201
-     0.653518  0.916502  0.0157947
+     0.459657  0.779721   0.7211
+     0.481826  0.109121   0.993989
+     0.739129  0.151485   0.848454
+     0.384884  0.0365876  0.974311
 
 Be careful when you want to copy arrays!
 
@@ -529,8 +590,9 @@ Try to add "Emergency" as key to `myphonebook` with the value
     myphonebook
     myphonebook["Emergency"] = 911
 
-    Dict{String,String} with 2 entries:
+    Dict{String,String} with 3 entries:
       "Jenny"        => "867-5309"
+      "Chini"        => "2225197000"
       "Ghostbusters" => "555-2368"
     ERROR: MethodError: Cannot `convert` an object of type Int64 to an object of type String
     Closest candidates are:
@@ -593,5 +655,7 @@ would accept integers as values?
 Because `Julia` is strongly typed syntax:
 
 `Dict{String,Any}`
+
+in the flexible array defined with type `Any`.
 
 *EOF*
